@@ -1,5 +1,5 @@
-const html = require("./generateHTML.js");
 const inquirer = require("inquirer");
+const html = require("./generateHTML.js");
 const electronHtml = require("electron-html-to");
 const fs = require("fs");
 const axios = require("axios");
