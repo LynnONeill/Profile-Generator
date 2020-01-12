@@ -1,34 +1,4 @@
-const colors = {
-  green: {
-    wrapperBackground: "#E6E1C3",
-    headerBackground: "#C1C72C",
-    headerColor: "black",
-    photoBorderColor: "#black"
-  },
-  blue: {
-    wrapperBackground: "#5F64D3",
-    headerBackground: "#26175A",
-    headerColor: "white",
-    photoBorderColor: "#73448C"
-  },
-  pink: {
-    wrapperBackground: "#879CDF",
-    headerBackground: "#FF8374",
-    headerColor: "white",
-    photoBorderColor: "#FEE24C"
-  },
-  red: {
-    wrapperBackground: "#DE9967",
-    headerBackground: "#870603",
-    headerColor: "white",
-    photoBorderColor: "white"
-  }
-};
-
-// module.exports = {
-  // generateHTML: function (data) {
- function generateHTML (data) {
-    return `<!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8" />
@@ -238,19 +208,19 @@ const colors = {
     <body>
       <div class="wrapper">
         <div class="photo-header">
-          <img src="${data.profilePic}">
+          <img src="https://avatars0.githubusercontent.com/u/56279379?v=4">
           <h1>Hi!</h1>
-          <h2>My name is ${data.name}!</h2>
-          <h5>Currently @ ${data.company}</h5>
+          <h2>My name is Lynn O'Neill!</h2>
+          <h5>Currently @ Affordable Fence and Gates, Inc</h5>
           <p class="links-nav">
             <i class="fas fa-location-arrow"></i>
-            ${data.locationLink}
+            Tucson, AZ
             &nbsp&nbsp&nbsp&nbsp
             <i class="fab fa-github"></i>
-            <a href="${data.gitHubLink}" target="_blank">GitHub</a>
+            <a href="undefined" target="_blank">GitHub</a>
             &nbsp&nbsp&nbsp&nbsp
             <i class="fas fa-rss"></i>
-            <a href="${data.blogLink}" target="_blank">Blog</a>
+            <a href="https://lynnoneill.github.io/Portfolio3/" target="_blank">Blog</a>
             <br>
           </p>
         </div>
@@ -258,20 +228,20 @@ const colors = {
         <main class="container">
           <div class="row">
             <div class="col">
-              <h3>${data.bio}</h3>
+              <h3>Business owner and aspiring developer.</h3>
             </div>
           </div>
           <div class="row">
             <div class="col">
               <div class="card">
                 <h3>Public Repositories</h3>
-                <h3>${data.reposNum}</h3>
+                <h3>14</h3>
               </div>
             </div>
             <div class="col">
               <div class="card">
                 <h3>Followers</h3>
-                <h3>${data.followers}</h3>
+                <h3>12</h3>
               </div>
             </div>
           </div>
@@ -280,14 +250,14 @@ const colors = {
             <div class="col">
               <div class="card">
                 <h3>Github Stars</h3>
-                <h3>${data.stars}</h3>
+                <h3>0</h3>
               </div>
             </div>
     
             <div class="col">
               <div class="card">
                 <h3>Following</h3>
-                <h3>${data.following}</h3>
+                <h3>19</h3>
               </div>
             </div>
           </div>
@@ -296,11 +266,4 @@ const colors = {
     
     </body>
     
-    </html>`
-  }
-
-  module.exports = {
-    colors: colors,
-    generateHTML: generateHTML,
-  };
-
+    </html>

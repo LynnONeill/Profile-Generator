@@ -3,6 +3,7 @@ const html = require("./generateHTML.js");
 const electronHtml = require("electron-html-to");
 const fs = require("fs");
 const axios = require("axios");
+let userInfo = "";
 
 // inquirer questions for user //
 
@@ -15,51 +16,112 @@ const questions = [
     {
         type: "list",
         message: "What is your favorite color?",
-        choices: ["red", "blue", "purple", "green"],
+        choices: ["green", "blue", "pink", "red"],
         name: "color",
     }
 ];
 
 
+
 // function to use user input for axios call //
 function init() {
+
     inquirer
         .prompt(questions)
         .then(function (answers) {
-            const userName = answers.username;
             const url = "https://api.github.com/users/" + answers.username;
+            const repoUrl = "https://api.github.com/users/" + answers.username + "/repos";
+            const color = answers.color;
+
+            let profilePic;
+            let name;
+            let company;
+            let locationLink;
+            let profileURL;
+            let blogLink;
+            let bio;
+            let reposNum;
+            let followers;
+            let stars;
+            let following;
+            
+
             console.log(url);
-            console.log(userName);
 
             // axios call to collect data for user
             axios.get(url)
                 .then(function (response) {
-                    bio = response.data.bio;
-                    reposNum = response.data.public_repos;
-                    followers = response.data.followers;
-                    following = response.data.following;
-                    stars = response.data.starred_url;
+                    profilePic = response.data.avatar_url;
                     name = response.data.name;
                     company = response.data.company;
                     locationLink = response.data.location;
+                    profileURL = response.data.html_url;
                     blogLink = response.data.blog;
-                    console.log(name);
-                    console.log(bio, reposNum, followers, following, stars, company);
+                    bio = response.data.bio;
+                    reposNum = response.data.public_repos;
+                    followers = response.data.followers;
+                    stars = 0;
+                    following = response.data.following;
+                    // console.log(response);
+                    console.log("Axios pull " + name);
+                    console.log(response);
+                    console.log(bio, reposNum, followers, following, stars, company, profilePic);
                     console.log(locationLink, blogLink);
-
-                    // put user data into html 
-
-                    // create html file
-                    // fs.readFile("generateHTML.js", "utf8", function(err, data) {
-                    html.generateHTML(response);
-
-                    fs.writeFile("index.html", response)
                 })
+
                 .catch(error => {
                     console.log(error);
-    
+
+                })
+
+            // axios call to get repo stars
+            axios.get(repoUrl)
+                .then(function (response) {
+                    console.log("Axios for stars " + response)
+
+                    // Object created for user data to write to HTML file //
+                    userInfo = {
+                        profilePic: profilePic,
+                        name: name,
+                        company: company,
+                        locationLink: locationLink,
+                        profileURL: profileURL,
+                        blogLink: blogLink,
+                        bio: bio,
+                        reposNum: reposNum,
+                        followers: followers,
+                        stars: 0,
+                        following: following,
+                        color: color,
+                    }
+
+
+                    let updatedHtml = html.generateHTML(userInfo);
+                    console.log(updatedHtml);
+
+                    CreateHtmlFile("index.html", updatedHtml);
+
+
+                })
+
         })
-        });
+
+        .catch(error => {
+            console.log(error);
+
+        })
+
+}
+
+
+function CreateHtmlFile(fileName, data) {
+    fs.writeFile(fileName, data, 'utf8', function (err) {
+
+        if (err) {
+            return console.log(err);
+        }
+        console.log("create file Success!");
+    })
 }
 
 init();
