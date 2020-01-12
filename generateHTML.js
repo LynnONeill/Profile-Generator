@@ -61,11 +61,9 @@ const colors = {
         }
     
         .wrapper {
-          background-color: $ {
+          background-color: ${
             colors[data.color].wrapperBackground
-          }
-    
-          ;
+          };
           padding-top: 100px;
         }
     
@@ -123,17 +121,12 @@ const colors = {
           justify-content: center;
           flex-wrap: wrap;
     
-          background-color: $ {
+          background-color: ${
             colors[data.color].headerBackground
-          }
-    
-          ;
-    
-          color: $ {
+          };
+          color: ${
             colors[data.color].headerColor
-          }
-    
-          ;
+          };
           padding: 10px;
           width: 95%;
           border-radius: 6px;
@@ -145,12 +138,9 @@ const colors = {
           border-radius: 50%;
           object-fit: cover;
           margin-top: -75px;
-    
-          border: 6px solid $ {
+          border: 6px solid ${
             colors[data.color].photoBorderColor
-          }
-    
-          ;
+          };
           box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
         }
     
@@ -200,18 +190,12 @@ const colors = {
         .card {
           padding: 20px;
           border-radius: 6px;
-    
-          background-color: $ {
+          background-color: ${
             colors[data.color].headerBackground
-          }
-    
-          ;
-    
-          color: $ {
+          };
+          color: ${
             colors[data.color].headerColor
-          }
-    
-          ;
+          };
           margin: 20px;
         }
     
@@ -237,7 +221,7 @@ const colors = {
     
     <body>
       <div class="wrapper">
-        <div class="photo-header">
+        <div class="photo-header pb-5">
           <img src="${data.profilePic}">
           <h1>Hi!</h1>
           <h2>My name is ${data.name}!</h2>
@@ -255,9 +239,9 @@ const colors = {
           </p>
         </div>
     
-        <main class="container">
+        <main class="container pt-0">
           <div class="row">
-            <div class="col">
+            <div class="col mt-5">
               <h3>${data.bio}</h3>
             </div>
           </div>
