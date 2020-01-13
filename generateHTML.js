@@ -231,7 +231,7 @@ const colors = {
             ${data.locationLink}
             &nbsp&nbsp&nbsp&nbsp
             <i class="fab fa-github"></i>
-            <a href="${data.gitHubLink}" target="_blank">GitHub</a>
+            <a href="${data.profileURL}" target="_blank">GitHub</a>
             &nbsp&nbsp&nbsp&nbsp
             <i class="fas fa-rss"></i>
             <a href="${data.blogLink}" target="_blank">Blog</a>
