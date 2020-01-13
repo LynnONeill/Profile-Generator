@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
-const html = require("./generateHTML.js");
-const electronHtml = require("electron-html-to");
+const genHtml = require("./generateHTML.js");
+const convertFactory = require("electron-html-to");
 const fs = require("fs");
 const axios = require("axios");
 let userInfo = "";
@@ -22,6 +22,7 @@ const questions = [
 ];
 
 
+init();
 
 // function to use user input for axios call //
 function init() {
@@ -44,7 +45,7 @@ function init() {
             let followers;
             let stars;
             let following;
-            
+
 
             console.log(url);
 
@@ -64,20 +65,27 @@ function init() {
                     following = response.data.following;
                     // console.log(response);
                     console.log("Axios pull " + name);
-                    console.log(response);
                     console.log(bio, reposNum, followers, following, stars, company, profilePic);
                     console.log(locationLink, blogLink);
                 })
 
-                .catch(error => {
+                .catch(function(error) {
                     console.log(error);
-
-                })
+                });
 
             // axios call to get repo stars
             axios.get(repoUrl)
                 .then(function (response) {
                     console.log("Axios for stars " + response)
+
+                    stars = 0;
+
+                    for (let i = 0; i < response.data.length; i++) {
+                        stars += response.data[i].stargazers_count;
+                        console.log (`# of stars on ${response.name} are ${response.stargazers_count}`);
+                    }
+
+                    console.log("total stars = " + stars);
 
                     // Object created for user data to write to HTML file //
                     userInfo = {
@@ -90,38 +98,49 @@ function init() {
                         bio: bio,
                         reposNum: reposNum,
                         followers: followers,
-                        stars: 0,
+                        stars: stars,
                         following: following,
                         color: color,
-                    }
+                    };
 
 
-                    let updatedHtml = html.generateHTML(userInfo);
-                    console.log(updatedHtml);
+                    let updatedHtml = genHtml.generateHTML(userInfo);
+                    // console.log(updatedHtml);
 
                     CreateHtmlFile("index.html", updatedHtml);
 
+                    // converting html to pdf document //
+
+                    // let conversion = convertFactory({
+                    //     converterPath: convertFactory.converters.PDF
+                    // });
+
+                    // conversion({ html: updatedHtml }, function (err, result) {
+                    //     if (err) {
+                    //         return console.error(err);
+                    //     }
+                    //     console.log("HELLLLOOOO PDF FILE " + result);
+                    //     result.stream.pipe(fs.createWriteStream(`./${answers.name}.pdf`))
+                    //     conversion.kill();
+                    // });
 
                 })
 
-        })
+                .catch(error => {
+                    console.log(error);
+                });
+            })
 
-        .catch(error => {
-            console.log(error);
+            function CreateHtmlFile(fileName, data) {
+                fs.writeFile(fileName, data, 'utf8', function (err) {
 
-        })
+                    if (err) {
+                        return console.log(err);
+                    }
+                    console.log("create file Success!");
+                });
+            }
 
-}
 
-
-function CreateHtmlFile(fileName, data) {
-    fs.writeFile(fileName, data, 'utf8', function (err) {
-
-        if (err) {
-            return console.log(err);
         }
-        console.log("create file Success!");
-    })
-}
-
-init();
+    
