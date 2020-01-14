@@ -37,7 +37,7 @@ const colors = {
       <link rel="stylesheet" href="./assets/style/bootstrap.min.css">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
       <link href="https://fonts.googleapis.com/css?family=BioRhyme|Cabin&display=swap" rel="stylesheet">
-      <title>Document</title>
+      <title>Profile Generator</title>
       <style>
         @page {
           margin: 0;
@@ -228,7 +228,7 @@ const colors = {
           <h5>Currently @ ${data.company}</h5>
           <p class="links-nav">
             <i class="fas fa-location-arrow"></i>
-            ${data.locationLink}
+            <a href= "https://www.google.com/maps/place/${data.locationLink}">
             &nbsp&nbsp&nbsp&nbsp
             <i class="fab fa-github"></i>
             <a href="${data.profileURL}" target="_blank">GitHub</a>

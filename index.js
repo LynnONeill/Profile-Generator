@@ -4,7 +4,9 @@ const convertFactory = require("electron-html-to");
 const fs = require("fs");
 const axios = require("axios");
 let userInfo = "";
+const path = require('path')
 
+// path.join(__dirname, "something.pdf")
 // inquirer questions for user //
 
 const questions = [
@@ -82,7 +84,7 @@ function init() {
 
                     for (let i = 0; i < response.data.length; i++) {
                         stars += response.data[i].stargazers_count;
-                        console.log (`# of stars on ${response.name} are ${response.stargazers_count}`);
+                        // console.log (`# of stars on ${response.name} are ${response.stargazers_count}`);
                     }
 
                     console.log("total stars = " + stars);
@@ -106,23 +108,25 @@ function init() {
 
                     let updatedHtml = genHtml.generateHTML(userInfo);
                     // console.log(updatedHtml);
-
+                    // console.log(updatedHtml)
                     CreateHtmlFile("index.html", updatedHtml);
 
                     // converting html to pdf document //
 
-                    // let conversion = convertFactory({
-                    //     converterPath: convertFactory.converters.PDF
-                    // });
+                    var conversion = convertFactory({
+                        converterPath: convertFactory.converters.PDF,
+                        allowLocalFileAccess: true
+                      });
 
-                    // conversion({ html: updatedHtml }, function (err, result) {
-                    //     if (err) {
-                    //         return console.error(err);
-                    //     }
-                    //     console.log("HELLLLOOOO PDF FILE " + result);
-                    //     result.stream.pipe(fs.createWriteStream(`./${answers.name}.pdf`))
-                    //     conversion.kill();
-                    // });
+                    conversion({ html: updatedHtml }, function (err, result) {
+                        if (err) {
+                            console.log('FAILED')
+                            return console.error(err);
+                        }
+                        console.log("HELLLLOOOO PDF FILE " + result);
+                        result.stream.pipe(fs.createWriteStream(`./${userInfo.name}.pdf`));
+                        conversion.kill();
+                    });
 
                 })
 
