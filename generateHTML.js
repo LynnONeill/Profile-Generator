@@ -26,9 +26,9 @@ const colors = {
 };
 
 // module.exports = {
-  // generateHTML: function (data) {
- function generateHTML (data) {
-    return `<!DOCTYPE html>
+// generateHTML: function (data) {
+function generateHTML(data) {
+  return `<!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8" />
@@ -62,8 +62,8 @@ const colors = {
     
         .wrapper {
           background-color: ${
-            colors[data.color].wrapperBackground
-          };
+    colors[data.color].wrapperBackground
+    };
           padding-top: 100px;
         }
     
@@ -122,11 +122,11 @@ const colors = {
           flex-wrap: wrap;
     
           background-color: ${
-            colors[data.color].headerBackground
-          };
+    colors[data.color].headerBackground
+    };
           color: ${
-            colors[data.color].headerColor
-          };
+    colors[data.color].headerColor
+    };
           padding: 10px;
           width: 95%;
           border-radius: 6px;
@@ -139,8 +139,8 @@ const colors = {
           object-fit: cover;
           margin-top: -75px;
           border: 6px solid ${
-            colors[data.color].photoBorderColor
-          };
+    colors[data.color].photoBorderColor
+    };
           box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
         }
     
@@ -191,11 +191,11 @@ const colors = {
           padding: 20px;
           border-radius: 6px;
           background-color: ${
-            colors[data.color].headerBackground
-          };
+    colors[data.color].headerBackground
+    };
           color: ${
-            colors[data.color].headerColor
-          };
+    colors[data.color].headerColor
+    };
           margin: 20px;
         }
     
@@ -227,8 +227,9 @@ const colors = {
           <h2>My name is ${data.name}!</h2>
           <h5>Currently @ ${data.company}</h5>
           <p class="links-nav">
+          <a href= "https://www.google.com/maps/place/${data.locationLink}">
             <i class="fas fa-location-arrow"></i>
-            <a href= "https://www.google.com/maps/place/${data.locationLink}">
+            ${data.locationLink}
             &nbsp&nbsp&nbsp&nbsp
             <i class="fab fa-github"></i>
             <a href="${data.profileURL}" target="_blank">GitHub</a>
@@ -281,10 +282,10 @@ const colors = {
     </body>
     
     </html>`
-  }
+}
 
-  module.exports = {
-    colors: colors,
-    generateHTML: generateHTML,
-  };
+module.exports = {
+  colors: colors,
+  generateHTML: generateHTML,
+};
 
